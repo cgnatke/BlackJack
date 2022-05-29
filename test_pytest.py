@@ -10,14 +10,11 @@ import blackjack
 import pytest
 
 
-# @pytest.mark.parameterize('x, result', [(2, 2), (3, 3), 4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)])
-# @pytest.mark.parameterize("test_input,expected", [(2, 2)])
-# @pytest.mark.parametrize("test_input,expected", [(5, 5), (6, 6), (8, 9)])
-# @pytest.mark.parametrize("test_input,expected", [(2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)])
-@pytest.mark.parametrize("test_input,expected", [(2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10),
-                                                 (10, 10), (11, 10), (12,
-                                                                      10), (13, 10), (14, 11),
-                                                 (0, ValueError), (-10, ValueError), (15, ValueError)])
+# @pytest.mark.parametrize("test_input,expected", [("2", 2)])
+@pytest.mark.parametrize("test_input, expected", [("2", 2), ("3", 3), ("4", 4), ("5", 5), ("6", 6), ("7", 7), ("8", 8), ("9", 9),
+                                                  ("10", 10), ("J", 10), ("Q",
+                                                                          10), ("K", 10), ("A", 11),
+                                                  ("0", ValueError), ("-10", ValueError), ("15", ValueError)])
 def test_getcardvalue(test_input, expected):
     if type(expected) == type and issubclass(expected, Exception):
         with pytest.raises(expected):
@@ -32,9 +29,9 @@ def test_eval(test_input, expected):
 
 
 def test_get_hand_value_17():
-    Card = namedtuple('Card', ['value', 'suit'])
+    card = namedtuple("card", ["value", "suit"])
     # queen and 7 = 17
-    x = [Card(value=12, suit='clubs'), Card(value=7, suit='diamonds')]
+    x = [card(value="q", suit="clubs"), card(value="7", suit="diamonds")]
     assert blackjack.get_hand_value(x) == 17
 
 
@@ -42,7 +39,7 @@ def test_get_hand_value_23():
     card = namedtuple("card", ["value", "suit"])
     # queen, 7 and 6 = 23
     x = [card(value="q", suit="clubs"), card(value="7", suit="diamonds"),
-         card(value=6, suit='diamonds')]
+         card(value="6", suit='diamonds')]
 
     assert blackjack.get_hand_value(x) == 23
 
@@ -63,3 +60,9 @@ def test_get_hand_value_blackjack():
     x = [card(value="k", suit="clubs"), card(value="a", suit='diamonds')]
 
     assert blackjack.get_hand_value(x) == 21
+
+
+# @pytest.mark.parameterize('x, result', [(2, 2), (3, 3), 4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)])
+# @pytest.mark.parameterize("test_input,expected", [("2", "2")])
+# @pytest.mark.parametrize("test_input,expected", [(5, 5), (6, 6), (8, 9)])
+# @pytest.mark.parametrize("test_input,expected", [(2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)])

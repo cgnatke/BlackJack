@@ -29,16 +29,22 @@ def get_bet_amount(bankroll: int):
             print("Try again- You need to bet at least the table minimum...")
 
 
-def get_card_value(card_num: int):
-    if(card_num < 2 or card_num > 14):
+def get_card_value(card_val: str):
+    if not card_val.isdigit():
+        if (card_val.lower() in ("j", "q", "k")):
+            return 10
+        elif card_val.lower() == "a":
+            return 11
+        else:
+            raise ValueError(
+                "card_val provided out of the range of Jack-Ace")
+    card_num = int(card_val)
+    print(card_num)  # todo remove
+    if(card_num < 2 or card_num > 10):
         raise ValueError(
-            "card_num provided out of the range of 2-13, inclusive")
-    elif(card_num < 11):  # cards less than 10
+            "card_val provided out of the range of 2-10, inclusive")
+    elif(card_num <= 10):  # cards less than 10
         return card_num
-    elif card_num < 14:  # face card or 10
-        return 10
-    elif card_num == 14:  # ace
-        return 11
 
 # todo this function should accept a list of cards and add them up
 
