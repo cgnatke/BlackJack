@@ -13,10 +13,19 @@ minimum_bet = 10
 
 # todo remove deck printing- it's cheating!
 # todo: fix bad input for adding to bankroll and bet amount!
+# todo: instruct player how to hit and stand
 
 def add_to_bankroll(bankroll: int):
     print(f"Your bankroll currently is {bankroll}.")
-    return int(input("How much would you like to add to your bankroll? "))
+    while(True):
+        bankroll_amt = input(
+            "How much would you like to add to your bankroll? ")
+        if not bankroll_amt.isdigit():
+            print("Invalid input: Input must be an integer value. Try again...")
+            continue
+        break  # input is integer value, we can proceed.
+    print(f"Adding {bankroll_amt} to the player's bankroll...")
+    return int(bankroll_amt)
 
 
 def get_bet_amount(bankroll: int):
@@ -110,7 +119,6 @@ def main():
 
     bankroll = 0
     bankroll += add_to_bankroll(bankroll)
-    print(bankroll)
 
     while (bankroll > 0):
         print(f"Bankroll: {bankroll}")
