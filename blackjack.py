@@ -73,7 +73,10 @@ def create_deck():
     card = namedtuple('card', ['value', 'suit'])
     suits = ['hearts', 'diamonds', 'spades', 'clubs']
     print("--------------------------------------------------------")
-    cards = [card(value, suit) for value in range(2, 15) for suit in suits]
+    card_values = ("2", "3", "4", "5", "6", "7", "8",
+                   "9", "10", "J", "Q", "K", "A")
+    #cards = [card(value, suit) for value in range(2, 15) for suit in suits]
+    cards = [card(value, suit) for value in card_values for suit in suits]
     print(cards)  # todo remove
     print("--------------------------------------------------------")
     deck = random.sample(cards, k=len(cards))  # shuffle the deck
