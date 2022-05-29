@@ -4,6 +4,9 @@
 # Note as of 5/19/2022 this is a very basic version of single player BlackJack: There are many features left
 # out of this game. One example is a hand cannot be split.
 
+
+# todo possible bug: if player wins 1.5 times bet and amount awarded is a decimal. Should this be allowed? Should be rounded to nearest integer?
+# todo bug: Player can get stuck in while loop if their bankroll is less than the minimum bet.
 from collections import namedtuple
 import random
 import time
