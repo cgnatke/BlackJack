@@ -18,8 +18,11 @@ def add_to_bankroll(bankroll: int):
 
 def get_bet_amount(bankroll: int):
     while(True):
-        amt = int(
-            input(f"How much do you want to bet? Table minimum is {minimum_bet}: "))
+        amt = input(
+            f"How much do you want to bet? Table minimum is {minimum_bet}. Press enter without a value to bet table minimum. ")
+        if (amt == ""):
+            amt = minimum_bet
+        amt = int(amt)
         if amt >= minimum_bet:
             print(f"You are betting {amt}!")
             if amt == bankroll:
