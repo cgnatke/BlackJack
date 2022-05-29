@@ -11,9 +11,6 @@ import time
 minimum_bet = 10
 
 
-# todo: instruct player how to hit and stand
-# todo: stop the game before you run out of cards....
-
 def add_to_bankroll(bankroll: int):
     print(f"Your bankroll currently is {bankroll}.")
     while(True):
@@ -100,11 +97,11 @@ def create_deck():
     card_values = ("2", "3", "4", "5", "6", "7", "8",
                    "9", "10", "Jack", "Queen", "King", "Ace")
     cards = [card(value, suit) for value in card_values for suit in suits]
-    # print(cards)  # todo remove
-    # print("--------------------------------------------------------")
+    # print(cards)  # debugging only
+    # print("--------------------------------------------------------") # debugging only
     deck = random.sample(cards, k=len(cards))  # shuffle the deck
-    # print(deck)
-    # print("--------------------------------------------------------")
+    # print(deck) # debugging only
+    # print("--------------------------------------------------------") # debugging only
 
     return deck
 
@@ -137,8 +134,8 @@ def main():
             random.shuffle(deck)  # shuffle the deck
             print("All done- Back to business...\n")
 
-            # print(deck)  # todo comment- debugging only...
-            # print(f"Deck length: {len(deck)}") # todo comment- debugging only...
+            # print(deck)  # debugging only...
+            # print(f"Deck length: {len(deck)}") # debugging only...
 
         player_cards.append(deck.pop())
         dealer_cards.append(deck.pop())
@@ -167,7 +164,6 @@ def main():
             # player gameplay
 
             while (get_hand_value(player_cards) < 21):
-                # todo print gameplay options:
                 player_decision = input(
                     "What is your next move? (S)tand or (H)it: ").lower()
                 if player_decision == "s":  # stand
@@ -186,8 +182,8 @@ def main():
 
             if (player_hand_value > 21):
                 print("You went bust, dealer wins!")
-                bet = 0  # todo do I need this?
-                continue  # todo should I break out of this iteration differently?
+                bet = 0  # just in case...
+                continue
             elif (player_hand_value < 22):
                 print(
                     f"Congrats! You hit {player_hand_value}, let's see how the dealer fairs...")
@@ -209,7 +205,7 @@ def main():
                 bankroll += bet * 1.5  # 3:2 payout
                 continue
             # dealer check if they have 21
-            # todo create print function for human readable hand
+            # todo create print function for human readable hand- maybe another time it's good enough to play for now...?
 
             if (get_hand_value(dealer_cards) > player_hand_value):
                 print("Dealer wins!")
@@ -220,7 +216,7 @@ def main():
                 print("Push! Player and the dealer tied.")
                 bankroll += bet  # player get their bet back
 
-        bet = 0  # reset the player's bet... todo why do we need this code?
+        bet = 0  # reset the player's bet just in case it doesn't get cleared during prompt
         print(f"Player's bankroll is currently: {bankroll}")
     print("Looks like you ran out of money... Maybe apply for a home equity or 401k loan?")
 
