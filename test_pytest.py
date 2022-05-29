@@ -62,6 +62,23 @@ def test_get_hand_value_blackjack():
     assert blackjack.get_hand_value(x) == 21
 
 
+def test_get_hand_value_Ace():
+    card = namedtuple("card", ["value", "suit"])
+    # Ace, 7 and 6 = 23
+    x = [card(value="Ace", suit="clubs"), card(value="7", suit="diamonds"),
+         card(value="6", suit='diamonds')]
+
+    assert blackjack.get_hand_value(x) == 14
+
+
+def test_get_hand_value_two_aces():
+    card = namedtuple("card", ["value", "suit"])
+    # Ace, 7 and 6 = 23
+    x = [card(value="Ace", suit="clubs"), card(value="Ace", suit="diamonds"),
+         card(value="6", suit='diamonds')]
+
+    assert blackjack.get_hand_value(x) == 18
+
 # @pytest.mark.parameterize('x, result', [(2, 2), (3, 3), 4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)])
 # @pytest.mark.parameterize("test_input,expected", [("2", "2")])
 # @pytest.mark.parametrize("test_input,expected", [(5, 5), (6, 6), (8, 9)])

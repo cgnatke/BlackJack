@@ -1,6 +1,9 @@
 # https://edge.twinspires.com/blackjack-terms-explained-blackjack-glossary-and-terminology/
 # https://bicyclecards.com/how-to-play/blackjack/
 
+# Note as of 5/19/2022 this is a very basic version of single player BlackJack: There are many features left
+# out of this game. One example is a hand cannot be split.
+
 from collections import namedtuple
 import random
 
@@ -51,8 +54,6 @@ def get_card_value(card_val: str):
     elif(card_num <= 10):  # cards less than 10
         return card_num
 
-# todo this function should accept a list of cards and add them up
-
 
 def check_for_natural(card1: tuple, card2: tuple):
     if get_card_value(card1[0]) + get_card_value(card2[0]) == 21:
@@ -63,12 +64,18 @@ def check_for_natural(card1: tuple, card2: tuple):
 # todo is an ace considered an 11 or 1???
 # def get_hand_value(cards: list[namedtuple('card', ['value', 'suit'])]):
 
+# note only one Ace per hand can be played with value of 1
+
 
 def get_hand_value(cards):
     sum = 0
+    containsAce = False
     for card in cards:
         # get each card's "value"  #todo why can't I access using .value() from the named tuple?
         sum += get_card_value(card[0])
+        # if card[0] == "Ace":
+        #     containsAce = True
+    # if sum > 21 and cards.
     return sum
 
 # https://stackoverflow.com/questions/41970795/what-is-the-best-way-to-create-a-deck-of-cards
