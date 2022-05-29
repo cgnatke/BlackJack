@@ -71,11 +71,11 @@ def get_hand_value(cards):
     sum = 0
     containsAce = False
     for card in cards:
-        # get each card's "value"  #todo why can't I access using .value() from the named tuple?
         sum += get_card_value(card[0])
-        # if card[0] == "Ace":
-        #     containsAce = True
-    # if sum > 21 and cards.
+        if card[0] == "Ace":
+            containsAce = True
+    if sum > 21 and containsAce:
+        sum = sum - 10  # one ace is being used as a 1, instead of 11
     return sum
 
 # https://stackoverflow.com/questions/41970795/what-is-the-best-way-to-create-a-deck-of-cards
