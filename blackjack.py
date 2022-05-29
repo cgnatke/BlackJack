@@ -8,6 +8,7 @@ import random
 minimum_bet = 10
 
 # todo bug: ace + ace = 22
+# todo remove deck printing- it's cheating!
 
 
 def add_to_bankroll(bankroll: int):
@@ -33,9 +34,9 @@ def get_bet_amount(bankroll: int):
 
 def get_card_value(card_val: str):
     if not card_val.isdigit():
-        if (card_val.lower() in ("j", "q", "k")):
+        if (card_val[0].lower() in ("j", "q", "k")):
             return 10
-        elif card_val.lower() == "a":
+        elif card_val[0].lower() == "a":
             return 11
         else:
             raise ValueError(
@@ -75,7 +76,7 @@ def create_deck():
     suits = ['hearts', 'diamonds', 'spades', 'clubs']
     print("--------------------------------------------------------")
     card_values = ("2", "3", "4", "5", "6", "7", "8",
-                   "9", "10", "J", "Q", "K", "A")
+                   "9", "10", "Jack", "Queen", "King", "Ace")
     # cards = [card(value, suit) for value in range(2, 15) for suit in suits]
     cards = [card(value, suit) for value in card_values for suit in suits]
     print(cards)  # todo remove
