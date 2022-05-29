@@ -7,6 +7,8 @@ import random
 
 minimum_bet = 10
 
+# todo bug: ace + ace = 22
+
 
 def add_to_bankroll(bankroll: int):
     print(f"Your bankroll currently is {bankroll}.")
@@ -39,7 +41,6 @@ def get_card_value(card_val: str):
             raise ValueError(
                 "card_val provided out of the range of Jack-Ace")
     card_num = int(card_val)
-    print(card_num)  # todo remove
     if(card_num < 2 or card_num > 10):
         raise ValueError(
             "card_val provided out of the range of 2-10, inclusive")
@@ -75,7 +76,7 @@ def create_deck():
     print("--------------------------------------------------------")
     card_values = ("2", "3", "4", "5", "6", "7", "8",
                    "9", "10", "J", "Q", "K", "A")
-    #cards = [card(value, suit) for value in range(2, 15) for suit in suits]
+    # cards = [card(value, suit) for value in range(2, 15) for suit in suits]
     cards = [card(value, suit) for value in card_values for suit in suits]
     print(cards)  # todo remove
     print("--------------------------------------------------------")
@@ -111,11 +112,10 @@ def main():
         player_cards.append(deck.pop())
         dealer_cards.append(deck.pop())
 
-        print("Player cards: ", end="")
-        print(player_cards)
-        print("Dealer's cards: ", end="")
-        # todo change to  only print  one card (the face up card)
-        print(dealer_cards)
+        print(f"Player's hand: {player_cards}")
+        # for debugging only
+        # print("Dealer's cards: ", end="")
+        # print(dealer_cards)
 
         # todo get rid of check_for_natural function- it's not needed
         if check_for_natural(player_cards[0], player_cards[1]):
@@ -131,8 +131,8 @@ def main():
 
         else:  # no one hit blackjack, continue...
             # player gameplay
+
             while (get_hand_value(player_cards) < 21):
-                print(f"Player's hand: {player_cards}")
                 # todo print gameplay options:
                 player_decision = input("What is your next move? ").lower()
                 if player_decision == "s":  # stand
@@ -143,7 +143,12 @@ def main():
                     player_cards.append(card)
                 else:
                     print("Invalid input, try again...")
+                print(f"Player's hand: {player_cards}")
+                print(
+                    f"Player's hand adds up to: {get_hand_value(player_cards)}")
+
             player_hand_value = get_hand_value(player_cards)  # store the value
+
             if (player_hand_value > 21):
                 print("You went bust, dealer wins!")
                 bet = 0  # todo do I need this?
@@ -161,7 +166,7 @@ def main():
                 card = deck.pop()
                 print(f"The dealer's next card is {card}")
                 dealer_cards.append(card)
-                print(dealer_cards)
+                print(f"Dealer's cards: {dealer_cards}")
                 print(
                     f"The dealer's hand adds up to: {get_hand_value(dealer_cards)}")
             if get_hand_value(dealer_cards) > 21:
@@ -170,7 +175,6 @@ def main():
                 continue
             # dealer check if they have 21
             # todo create print function for human readable hand
-            print(dealer_cards)
 
             if (get_hand_value(dealer_cards) > player_hand_value):
                 print("Dealer wins!")
@@ -178,6 +182,7 @@ def main():
                 print("Player wins")
                 bankroll += bet * 1.5  # 3:2 payout
             else:  # push
+                print("Push! Player and the dealer tied.")
                 bankroll += bet  # player get their bet back
 
         bet = 0  # reset the player's bet... todo why do we need this code?
