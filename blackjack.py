@@ -100,16 +100,14 @@ def get_hand_value(cards):
 def create_deck():
     card = namedtuple('card', ['value', 'suit'])
     suits = ['hearts', 'diamonds', 'spades', 'clubs']
-    print("--------------------------------------------------------")
     card_values = ("2", "3", "4", "5", "6", "7", "8",
                    "9", "10", "Jack", "Queen", "King", "Ace")
-    # cards = [card(value, suit) for value in range(2, 15) for suit in suits]
     cards = [card(value, suit) for value in card_values for suit in suits]
-    print(cards)  # todo remove
-    print("--------------------------------------------------------")
+    # print(cards)  # todo remove
+    # print("--------------------------------------------------------")
     deck = random.sample(cards, k=len(cards))  # shuffle the deck
-    print(deck)
-    print("--------------------------------------------------------")
+    # print(deck)
+    # print("--------------------------------------------------------")
 
     return deck
 
