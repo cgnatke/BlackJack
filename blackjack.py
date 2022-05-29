@@ -32,20 +32,24 @@ def get_bet_amount(bankroll: int):
     while(True):
         amt = input(
             f"How much do you want to bet? Table minimum is {minimum_bet}. Press enter without a value to bet table minimum. ")
-        if type(amt) == str:
-            if amt == "":
-                amt = minimum_bet
-            else:
-                print("Invalid input: Input must be an integer value. Try again...")
-                continue
-        if amt >= minimum_bet:
+
+        if amt == "":
+            amt = minimum_bet
+        elif not amt.isdigit():
+            print("Invalid input: Input must be an integer value. Try again...")
+            continue
+
+        # assumption: at this point amt.isdigit() will always equal True
+        amt = int(amt)
+        if amt > bankroll:
+            print(
+                f"Try again- You cannot bet more than your current bankroll of {bankroll}")
+        elif amt >= minimum_bet:
             print(f"You are betting {amt}!")
             if amt == bankroll:
                 print("Holy $^$#@#@! you went all in!!!")
             return amt  # exit
-        elif amt > bankroll:
-            print(
-                "Try again- You cannot bet more than your current bankroll of {bankroll}")
+
         else:
             print("Try again- You need to bet at least the table minimum...")
 
