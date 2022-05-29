@@ -6,14 +6,13 @@
 
 from collections import namedtuple
 import random
-
+import time
 
 minimum_bet = 10
 
 
-# todo remove deck printing- it's cheating!
-# todo: fix bad input for adding to bankroll and bet amount!
 # todo: instruct player how to hit and stand
+# todo: stop the game before you run out of cards....
 
 def add_to_bankroll(bankroll: int):
     print(f"Your bankroll currently is {bankroll}.")
@@ -77,8 +76,6 @@ def check_for_natural(card1: tuple, card2: tuple):
     else:
         return False
 
-# todo is an ace considered an 11 or 1???
-# def get_hand_value(cards: list[namedtuple('card', ['value', 'suit'])]):
 
 # note only one Ace per hand can be played with value of 1
 
@@ -114,10 +111,7 @@ def create_deck():
 
 def main():
 
-    # todo create init deck function
-
     deck = create_deck()
-    # todo what to do when deck is about to run out?
 
     bankroll = 0
     bankroll += add_to_bankroll(bankroll)
@@ -128,7 +122,24 @@ def main():
         bankroll -= bet
         player_cards = []
         dealer_cards = []
-        # if deck has more than x cards left, else shuffle or end games?
+
+        if (len(deck) < 22):
+            msg = """
+            The dealer needs to add another deck to the shoe.
+            Please enjoy a drink while we wait for the dealer to add another deck and shuffle"""
+            print(msg)
+            time.sleep(5)
+            print("Sorry this is taking so long...")
+            new_deck = create_deck()
+            deck = deck + new_deck  # add the new deck to the existing cards
+            print("Finally have the new deck, just need to shuffle")
+            time.sleep(5)
+            random.shuffle(deck)  # shuffle the deck
+            print("All done- Back to business...\n")
+
+            # print(deck)  # todo comment- debugging only...
+            # print(f"Deck length: {len(deck)}") # todo comment- debugging only...
+
         player_cards.append(deck.pop())
         dealer_cards.append(deck.pop())
         print(
@@ -141,7 +152,6 @@ def main():
         # print("Dealer's cards: ", end="")
         # print(dealer_cards)
 
-        # todo get rid of check_for_natural function- it's not needed
         if check_for_natural(player_cards[0], player_cards[1]):
             print("Congratulations! You hit blackjack!")
             if check_for_natural(dealer_cards[0], dealer_cards[1]):
@@ -158,7 +168,8 @@ def main():
 
             while (get_hand_value(player_cards) < 21):
                 # todo print gameplay options:
-                player_decision = input("What is your next move? ").lower()
+                player_decision = input(
+                    "What is your next move? (S)tand or (H)it: ").lower()
                 if player_decision == "s":  # stand
                     break  # exit, go on to dealer play
                 elif player_decision == "h":  # hit
