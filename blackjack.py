@@ -10,9 +10,9 @@ import random
 
 minimum_bet = 10
 
-# todo bug: ace + ace = 22
-# todo remove deck printing- it's cheating!
 
+# todo remove deck printing- it's cheating!
+# todo: fix bad input for adding to bankroll and bet amount!
 
 def add_to_bankroll(bankroll: int):
     print(f"Your bankroll currently is {bankroll}.")
@@ -23,9 +23,12 @@ def get_bet_amount(bankroll: int):
     while(True):
         amt = input(
             f"How much do you want to bet? Table minimum is {minimum_bet}. Press enter without a value to bet table minimum. ")
-        if (amt == ""):
-            amt = minimum_bet
-        amt = int(amt)
+        if type(amt) == str:
+            if amt == "":
+                amt = minimum_bet
+            else:
+                print("Invalid input: Input must be an integer value. Try again...")
+                continue
         if amt >= minimum_bet:
             print(f"You are betting {amt}!")
             if amt == bankroll:
