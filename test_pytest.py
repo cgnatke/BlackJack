@@ -39,10 +39,10 @@ def test_get_hand_value_17():
 
 
 def test_get_hand_value_23():
-    Card = namedtuple('Card', ['value', 'suit'])
+    card = namedtuple("card", ["value", "suit"])
     # queen, 7 and 6 = 23
-    x = [Card(value=12, suit='clubs'), Card(value=7, suit='diamonds'),
-         Card(value=6, suit='diamonds')]
+    x = [card(value="q", suit="clubs"), card(value="7", suit="diamonds"),
+         card(value=6, suit='diamonds')]
 
     assert blackjack.get_hand_value(x) == 23
 
@@ -51,15 +51,15 @@ def test_get_hand_value_20():
     card = namedtuple('Card', ['value', 'suit'])
     card[0]
     # king and jack = 20
-    x = [card(value=13, suit='clubs'), card(value=11, suit='diamonds')]
+    x = [card(value="k", suit='clubs'), card(value="j", suit='diamonds')]
 
     assert blackjack.get_hand_value(x) == 20
 
 
 def test_get_hand_value_blackjack():
-    card = namedtuple('Card', ['value', 'suit'])
+    card = namedtuple("card", ["value", "suit"])
     card[0]
     # king and ace = 21
-    x = [card(value=13, suit='clubs'), card(value=14, suit='diamonds')]
+    x = [card(value="k", suit="clubs"), card(value="a", suit='diamonds')]
 
     assert blackjack.get_hand_value(x) == 21
